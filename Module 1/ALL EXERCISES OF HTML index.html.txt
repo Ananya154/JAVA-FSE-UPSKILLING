@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Community Event Portal</title>
+    <style>
+        /* Task 3 - Internal CSS */
+        #welcomeBanner {
+            background-color: lightblue;
+            padding: 15px;
+            text-align: center;
+        }
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+        .gallery-img {
+            border: 2px solid gray;
+            width: 200px;
+            height: auto;
+        }
+        table {
+            margin: 20px auto;
+        }
+        form {
+            padding: 15px;
+            background-color: #f0f0f0;
+            margin: 20px;
+        }
+        output {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function validatePhone(el) {
+            const phonePattern = /^\d{10}$/;
+            if (!phonePattern.test(el.value)) {
+                alert("Please enter a valid 10-digit phone number.");
+                el.focus();
+            }
+        }
+
+        function showFee(select) {
+            const output = document.getElementById("eventFee");
+            output.value = "Selected fee: $" + (select.value === "Workshop" ? 20 : 10);
+        }
+
+        function confirmSubmission() {
+            document.getElementById("confirmation").value = "Form submitted successfully!";
+        }
+
+        function enlargeImage(el) {
+            el.style.transform = "scale(1.2)";
+            el.style.transition = "transform 0.3s";
+        }
+
+        function countChars(el) {
+            document.getElementById("charCount").textContent = "Characters: " + el.value.length;
+        }
+
+        function videoReady() {
+            document.getElementById("videoStatus").textContent = "Video ready to play!";
+        }
+
+        function savePreference() {
+            const type = document.getElementById("eventType").value;
+            localStorage.setItem("preferredType", type);
+        }
+
+        function loadPreference() {
+            const saved = localStorage.getItem("preferredType");
+            if (saved) {
+                document.getElementById("eventType").value = saved;
+            }
+        }
+
+        function clearPreferences() {
+            localStorage.clear();
+            sessionStorage.clear();
+            alert("Preferences cleared.");
+        }
+
+        function findNearby() {
+            if (!navigator.geolocation) {
+                alert("Geolocation not supported.");
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                pos => {
+                    document.getElementById("coords").textContent =
+                        "Latitude: " + pos.coords.latitude + ", Longitude: " + pos.coords.longitude;
+                },
+                err => {
+                    alert("Error getting location: " + err.message);
+                },
+                { enableHighAccuracy: true, timeout: 5000 }
+            );
+        }
+
+        window.onbeforeunload = function () {
+            return "Are you sure you want to leave? Unsaved changes may be lost.";
+        };
+    </script>
+</head>
+<body onload="loadPreference()">
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a> |
+        <a href="#events">Events</a> |
+        <a href="#contact">Contact</a> |
+        <a href="help.html" target="_blank">Help</a>
+    </nav>
+
+    <!-- Main -->
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <div id="welcomeBanner">
+                <h1>Welcome to the Local Community Event Portal</h1>
+                <p>This portal helps you register for events and find local services.</p>
+                <p><span style="color:red; font-weight:bold;">Special Offer:</span> Free entry to first 50 registrants!</p>
+                <p class="highlight">Don't miss out on exciting community events!</p>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events">
+            <h2>Upcoming Events</h2>
+
+            <!-- Image Gallery -->
+            <table>
+                <caption>Memories from Past Events</caption>
+                <tr>
+                    <td><img src="event1.jpg" class="gallery-img" alt="Event 1" title="Music Night" ondblclick="enlargeImage(this)"></td>
+                    <td><img src="event2.jpg" class="gallery-img" alt="Event 2" title="Community Yoga" ondblclick="enlargeImage(this)"></td>
+                    <td><img src="event3.jpg" class="gallery-img" alt="Event 3" title="Food Festival" ondblclick="enlargeImage(this)"></td>
+                </tr>
+                <tr>
+                    <td><img src="event4.jpg" class="gallery-img" alt="Event 4" title="Art Fair" ondblclick="enlargeImage(this)"></td>
+                    <td><img src="event5.jpg" class="gallery-img" alt="Event 5" title="Cultural Parade" ondblclick="enlargeImage(this)"></td>
+                    <td><img src="event6.jpg" class="gallery-img" alt="Event 6" title="Science Expo" ondblclick="enlargeImage(this)"></td>
+                </tr>
+            </table>
+
+            <!-- Registration Form -->
+            <form onsubmit="confirmSubmission(); return false;">
+                <h3>Register for an Event</h3>
+                <label>Name: <input type="text" placeholder="Enter name" required autofocus></label><br><br>
+                <label>Email: <input type="email" placeholder="Enter email" required></label><br><br>
+                <label>Phone: <input type="text" onblur="validatePhone(this)" placeholder="10-digit number" required></label><br><br>
+                <label>Date: <input type="date" required></label><br><br>
+                <label>Event Type:
+                    <select id="eventType" onchange="showFee(this); savePreference()">
+                        <option value="Workshop">Workshop</option>
+                        <option value="Concert">Concert</option>
+                    </select>
+                </label><br><br>
+                <output id="eventFee"></output>
+                <label>Message:<br>
+                    <textarea onkeyup="countChars(this)" rows="4" cols="40" placeholder="Your message..."></textarea>
+                </label>
+                <div id="charCount"></div><br>
+                <button type="submit" onclick="confirmSubmission()">Submit</button><br><br>
+                <output id="confirmation"></output>
+            </form>
+            <button onclick="clearPreferences()">Clear Preferences</button>
+        </section>
+
+        <!-- Video Promo -->
+        <section>
+            <h3>Event Video Invite</h3>
+            <video width="400" controls oncanplay="videoReady()">
+                <source src="promo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div id="videoStatus"></div>
+        </section>
+
+        <!-- Geolocation -->
+        <section>
+            <h3>Find Events Near You</h3>
+            <button onclick="findNearby()">Find Nearby Events</button>
+            <p id="coords"></p>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Email: info@cityportal.com</p>
+            <p class="highlight">For help, visit the Help section or reach out via email.</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 City Council</p>
+    </footer>
+
+</body>
+</html>
