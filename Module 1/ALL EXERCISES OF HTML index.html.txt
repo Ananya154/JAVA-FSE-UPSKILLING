@@ -1,203 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Local Community Event Portal</title>
-    <style>
-        /* Task 3 - Internal CSS */
-        #welcomeBanner {
-            background-color: lightblue;
-            padding: 15px;
-            text-align: center;
-        }
-        .highlight {
-            background-color: yellow;
-            font-weight: bold;
-        }
-        .gallery-img {
-            border: 2px solid gray;
-            width: 200px;
-            height: auto;
-        }
-        table {
-            margin: 20px auto;
-        }
-        form {
-            padding: 15px;
-            background-color: #f0f0f0;
-            margin: 20px;
-        }
-        output {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-    </style>
-    <script>
-        function validatePhone(el) {
-            const phonePattern = /^\d{10}$/;
-            if (!phonePattern.test(el.value)) {
-                alert("Please enter a valid 10-digit phone number.");
-                el.focus();
-            }
-        }
+  <meta charset="UTF-8">
+  <title>Community Connect</title>
+  <style>
+    /* Task 3 - Internal Styling for Welcome Section */
+    #introBanner {
+      background-color: skyblue;
+      padding: 20px;
+      text-align: center;
+    }
+    .highlighted {
+      background-color: gold;
+      font-weight: 600;
+    }
+    .memories-img {
+      border: 3px solid #777;
+      width: 180px;
+      height: auto;
+    }
+    table {
+      margin: 25px auto;
+    }
+    form {
+      padding: 20px;
+      background-color: #e9e9e9;
+      margin: 25px;
+    }
+    output {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    function checkPhone(input) {
+      const pattern = /^\d{10}$/;
+      if (!pattern.test(input.value)) {
+        alert("Enter a valid 10-digit phone number.");
+        input.focus();
+      }
+    }
 
-        function showFee(select) {
-            const output = document.getElementById("eventFee");
-            output.value = "Selected fee: $" + (select.value === "Workshop" ? 20 : 10);
-        }
+    function updateFee(dropdown) {
+      const feeOutput = document.getElementById("feeDisplay");
+      feeOutput.value = "Fee: $" + (dropdown.value === "Workshop" ? 20 : 15);
+    }
 
-        function confirmSubmission() {
-            document.getElementById("confirmation").value = "Form submitted successfully!";
-        }
+    function showSuccess() {
+      document.getElementById("formStatus").value = "You have registered successfully!";
+    }
 
-        function enlargeImage(el) {
-            el.style.transform = "scale(1.2)";
-            el.style.transition = "transform 0.3s";
-        }
+    function zoomImage(image) {
+      image.style.transform = "scale(1.15)";
+      image.style.transition = "transform 0.25s ease";
+    }
 
-        function countChars(el) {
-            document.getElementById("charCount").textContent = "Characters: " + el.value.length;
-        }
+    function charTracker(textarea) {
+      document.getElementById("tracker").textContent = "Characters typed: " + textarea.value.length;
+    }
 
-        function videoReady() {
-            document.getElementById("videoStatus").textContent = "Video ready to play!";
-        }
+    function videoLoaded() {
+      document.getElementById("vidMessage").textContent = "Your video is ready to play.";
+    }
 
-        function savePreference() {
-            const type = document.getElementById("eventType").value;
-            localStorage.setItem("preferredType", type);
-        }
+    function storeType() {
+      const choice = document.getElementById("activityType").value;
+      localStorage.setItem("savedType", choice);
+    }
 
-        function loadPreference() {
-            const saved = localStorage.getItem("preferredType");
-            if (saved) {
-                document.getElementById("eventType").value = saved;
-            }
-        }
+    function recallType() {
+      const saved = localStorage.getItem("savedType");
+      if (saved) {
+        document.getElementById("activityType").value = saved;
+      }
+    }
 
-        function clearPreferences() {
-            localStorage.clear();
-            sessionStorage.clear();
-            alert("Preferences cleared.");
-        }
+    function resetStorage() {
+      localStorage.clear();
+      sessionStorage.clear();
+      alert("All preferences have been removed.");
+    }
 
-        function findNearby() {
-            if (!navigator.geolocation) {
-                alert("Geolocation not supported.");
-                return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                pos => {
-                    document.getElementById("coords").textContent =
-                        "Latitude: " + pos.coords.latitude + ", Longitude: " + pos.coords.longitude;
-                },
-                err => {
-                    alert("Error getting location: " + err.message);
-                },
-                { enableHighAccuracy: true, timeout: 5000 }
-            );
-        }
+    function locateUser() {
+      if (!navigator.geolocation) {
+        alert("Your browser doesn't support geolocation.");
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          document.getElementById("geoInfo").textContent =
+            "Latitude: " + pos.coords.latitude + ", Longitude: " + pos.coords.longitude;
+        },
+        error => {
+          alert("Unable to fetch location: " + error.message);
+        },
+        { enableHighAccuracy: true, timeout: 5000 }
+      );
+    }
 
-        window.onbeforeunload = function () {
-            return "Are you sure you want to leave? Unsaved changes may be lost.";
-        };
-    </script>
+    window.onbeforeunload = () => "Leave the page? Unsaved work may be lost.";
+  </script>
 </head>
-<body onload="loadPreference()">
+<body onload="recallType()">
 
-    <!-- Navigation -->
-    <nav>
-        <a href="#home">Home</a> |
-        <a href="#events">Events</a> |
-        <a href="#contact">Contact</a> |
-        <a href="help.html" target="_blank">Help</a>
-    </nav>
+  <!-- Navigation -->
+  <nav>
+    <a href="#home">Home</a> |
+    <a href="#activities">Events</a> |
+    <a href="#support">Contact</a> |
+    <a href="help.html" target="_blank">Help</a>
+  </nav>
 
-    <!-- Main -->
-    <main>
-        <!-- Home Section -->
-        <section id="home">
-            <div id="welcomeBanner">
-                <h1>Welcome to the Local Community Event Portal</h1>
-                <p>This portal helps you register for events and find local services.</p>
-                <p><span style="color:red; font-weight:bold;">Special Offer:</span> Free entry to first 50 registrants!</p>
-                <p class="highlight">Don't miss out on exciting community events!</p>
-            </div>
-        </section>
+  <!-- Main -->
+  <main>
+    <!-- Home Section -->
+    <section id="home">
+      <div id="introBanner">
+        <h1>Welcome to Community Connect</h1>
+        <p>Join events, explore local highlights, and connect with your city.</p>
+        <p><span style="color:red; font-weight:bold;">Limited Offer:</span> Free pass for first 50 users!</p>
+        <p class="highlighted">Join us and never miss another community celebration!</p>
+      </div>
+    </section>
 
-        <!-- Events Section -->
-        <section id="events">
-            <h2>Upcoming Events</h2>
+    <!-- Event Gallery Section -->
+    <section id="activities">
+      <h2>What's Happening</h2>
 
-            <!-- Image Gallery -->
-            <table>
-                <caption>Memories from Past Events</caption>
-                <tr>
-                    <td><img src="event1.jpg" class="gallery-img" alt="Event 1" title="Music Night" ondblclick="enlargeImage(this)"></td>
-                    <td><img src="event2.jpg" class="gallery-img" alt="Event 2" title="Community Yoga" ondblclick="enlargeImage(this)"></td>
-                    <td><img src="event3.jpg" class="gallery-img" alt="Event 3" title="Food Festival" ondblclick="enlargeImage(this)"></td>
-                </tr>
-                <tr>
-                    <td><img src="event4.jpg" class="gallery-img" alt="Event 4" title="Art Fair" ondblclick="enlargeImage(this)"></td>
-                    <td><img src="event5.jpg" class="gallery-img" alt="Event 5" title="Cultural Parade" ondblclick="enlargeImage(this)"></td>
-                    <td><img src="event6.jpg" class="gallery-img" alt="Event 6" title="Science Expo" ondblclick="enlargeImage(this)"></td>
-                </tr>
-            </table>
+      <table>
+        <caption>Glimpses from Previous Events</caption>
+        <tr>
+          <td><img src="event1.jpg" class="memories-img" alt="Music Bash" title="Live Music" ondblclick="zoomImage(this)"></td>
+          <td><img src="event2.jpg" class="memories-img" alt="Yoga Time" title="Morning Yoga" ondblclick="zoomImage(this)"></td>
+          <td><img src="event3.jpg" class="memories-img" alt="Foodie Fest" title="Delicious Bites" ondblclick="zoomImage(this)"></td>
+        </tr>
+        <tr>
+          <td><img src="event4.jpg" class="memories-img" alt="Art Mania" title="Art Show" ondblclick="zoomImage(this)"></td>
+          <td><img src="event5.jpg" class="memories-img" alt="Culture Walk" title="Parade Fun" ondblclick="zoomImage(this)"></td>
+          <td><img src="event6.jpg" class="memories-img" alt="Innovate" title="Tech Expo" ondblclick="zoomImage(this)"></td>
+        </tr>
+      </table>
 
-            <!-- Registration Form -->
-            <form onsubmit="confirmSubmission(); return false;">
-                <h3>Register for an Event</h3>
-                <label>Name: <input type="text" placeholder="Enter name" required autofocus></label><br><br>
-                <label>Email: <input type="email" placeholder="Enter email" required></label><br><br>
-                <label>Phone: <input type="text" onblur="validatePhone(this)" placeholder="10-digit number" required></label><br><br>
-                <label>Date: <input type="date" required></label><br><br>
-                <label>Event Type:
-                    <select id="eventType" onchange="showFee(this); savePreference()">
-                        <option value="Workshop">Workshop</option>
-                        <option value="Concert">Concert</option>
-                    </select>
-                </label><br><br>
-                <output id="eventFee"></output>
-                <label>Message:<br>
-                    <textarea onkeyup="countChars(this)" rows="4" cols="40" placeholder="Your message..."></textarea>
-                </label>
-                <div id="charCount"></div><br>
-                <button type="submit" onclick="confirmSubmission()">Submit</button><br><br>
-                <output id="confirmation"></output>
-            </form>
-            <button onclick="clearPreferences()">Clear Preferences</button>
-        </section>
+      <!-- Registration Form -->
+      <form onsubmit="showSuccess(); return false;">
+        <h3>Sign Up for an Event</h3>
+        <label>Name: <input type="text" placeholder="Full name" required autofocus></label><br><br>
+        <label>Email: <input type="email" placeholder="Email address" required></label><br><br>
+        <label>Phone: <input type="text" onblur="checkPhone(this)" placeholder="10-digit phone" required></label><br><br>
+        <label>Date: <input type="date" required></label><br><br>
+        <label>Event Type:
+          <select id="activityType" onchange="updateFee(this); storeType()">
+            <option value="Workshop">Workshop</option>
+            <option value="Concert">Concert</option>
+          </select>
+        </label><br><br>
+        <output id="feeDisplay"></output>
+        <label>Message:<br>
+          <textarea onkeyup="charTracker(this)" rows="4" cols="40" placeholder="Any thoughts..."></textarea>
+        </label>
+        <div id="tracker"></div><br>
+        <button type="submit" onclick="showSuccess()">Submit</button><br><br>
+        <output id="formStatus"></output>
+      </form>
+      <button onclick="resetStorage()">Reset Preferences</button>
+    </section>
 
-        <!-- Video Promo -->
-        <section>
-            <h3>Event Video Invite</h3>
-            <video width="400" controls oncanplay="videoReady()">
-                <source src="promo.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div id="videoStatus"></div>
-        </section>
+    <!-- Video Section -->
+    <section>
+      <h3>Invitation Video</h3>
+      <video width="400" controls oncanplay="videoLoaded()">
+        <source src="promo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div id="vidMessage"></div>
+    </section>
 
-        <!-- Geolocation -->
-        <section>
-            <h3>Find Events Near You</h3>
-            <button onclick="findNearby()">Find Nearby Events</button>
-            <p id="coords"></p>
-        </section>
+    <!-- Location Section -->
+    <section>
+      <h3>Locate Nearby Events</h3>
+      <button onclick="locateUser()">Locate Me</button>
+      <p id="geoInfo"></p>
+    </section>
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>Email: info@cityportal.com</p>
-            <p class="highlight">For help, visit the Help section or reach out via email.</p>
-        </section>
-    </main>
+    <!-- Contact Section -->
+    <section id="support">
+      <h2>Contact</h2>
+      <p>Email: connect@cityevents.org</p>
+      <p class="highlighted">Need help? Visit our help page or email us directly.</p>
+    </section>
+  </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 City Council</p>
-    </footer>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Community Connect</p>
+  </footer>
 
 </body>
 </html>
