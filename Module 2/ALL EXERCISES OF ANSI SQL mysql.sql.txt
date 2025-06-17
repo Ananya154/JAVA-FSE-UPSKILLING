@@ -1,90 +1,90 @@
-1. User Upcoming Events:
-SELECT u.full_name, e.title, e.start_date
-FROM Users u
-JOIN Registrations r ON u.user_id = r.user_id
-JOIN Events e ON r.event_id = e.event_id
-WHERE e.status = 'upcoming' AND u.city = e.city
-ORDER BY e.start_date;
+ Task 1: User's Upcoming Local Events
+SELECT usr.full_name, evt.title, evt.start_date
+FROM Users usr
+JOIN Registrations reg ON usr.user_id = reg.user_id
+JOIN Events evt ON reg.event_id = evt.event_id
+WHERE evt.status = 'upcoming' AND usr.city = evt.city
+ORDER BY evt.start_date;
 
-2. Top Rated Events:
-SELECT e.title, AVG(f.rating) AS avg_rating, COUNT(*) AS feedback_count
-FROM Feedback f
-JOIN Events e ON f.event_id = e.event_id
-GROUP BY e.event_id
+ Task 2: Highest Rated Events
+SELECT evt.title, AVG(fbk.rating) AS average_rating, COUNT(*) AS feedback_entries
+FROM Feedback fbk
+JOIN Events evt ON fbk.event_id = evt.event_id
+GROUP BY evt.event_id
 HAVING COUNT(*) >= 10
-ORDER BY avg_rating DESC;
+ORDER BY average_rating DESC;
 
-3. Inactive Users (no registrations in last 90 days):
+ Task 3: Recently Inactive Users
 SELECT * FROM Users
 WHERE user_id NOT IN (
   SELECT user_id FROM Registrations
   WHERE registration_date >= CURDATE() - INTERVAL 90 DAY
 );
 
-4. Peak Session Hours (10 AM to 12 PM):
-SELECT e.title, COUNT(*) AS session_count
-FROM Sessions s
-JOIN Events e ON s.event_id = e.event_id
-WHERE TIME(s.start_time) BETWEEN '10:00:00' AND '11:59:59'
-GROUP BY s.event_id;
+ Task 4: Events During Peak Hours
+SELECT evt.title, COUNT(*) AS sessions_between_10_and_12
+FROM Sessions ses
+JOIN Events evt ON ses.event_id = evt.event_id
+WHERE TIME(ses.start_time) BETWEEN '10:00:00' AND '11:59:59'
+GROUP BY ses.event_id;
 
-5. Most Active Cities:
-SELECT u.city, COUNT(DISTINCT r.user_id) AS total_users
-FROM Users u
-JOIN Registrations r ON u.user_id = r.user_id
-GROUP BY u.city
-ORDER BY total_users DESC
+ Task 5: Top 5 Active Cities by Registrations
+SELECT usr.city, COUNT(DISTINCT reg.user_id) AS user_count
+FROM Users usr
+JOIN Registrations reg ON usr.user_id = reg.user_id
+GROUP BY usr.city
+ORDER BY user_count DESC
 LIMIT 5;
 
-6. Event Resource Summary:
-SELECT e.title,
-       SUM(resource_type = 'pdf') AS pdfs,
-       SUM(resource_type = 'image') AS images,
-       SUM(resource_type = 'link') AS links
-FROM Resources r
-JOIN Events e ON r.event_id = e.event_id
-GROUP BY r.event_id;
+ Task 6: Count Resources per Event by Type
+SELECT evt.title,
+       SUM(resource_type = 'pdf') AS pdf_files,
+       SUM(resource_type = 'image') AS image_files,
+       SUM(resource_type = 'link') AS link_resources
+FROM Resources res
+JOIN Events evt ON res.event_id = evt.event_id
+GROUP BY res.event_id;
 
-7. Low Feedback Alerts:
-SELECT u.full_name, e.title, f.rating, f.comments
-FROM Feedback f
-JOIN Users u ON f.user_id = u.user_id
-JOIN Events e ON f.event_id = e.event_id
-WHERE f.rating < 3;
+ Task 7: Users Giving Low Ratings
+SELECT usr.full_name, evt.title, fbk.rating, fbk.comments
+FROM Feedback fbk
+JOIN Users usr ON fbk.user_id = usr.user_id
+JOIN Events evt ON fbk.event_id = evt.event_id
+WHERE fbk.rating < 3;
 
-8. Sessions per Upcoming Event:
-SELECT e.title, COUNT(s.session_id) AS total_sessions
-FROM Events e
-LEFT JOIN Sessions s ON e.event_id = s.event_id
-WHERE e.status = 'upcoming'
-GROUP BY e.event_id;
+ Task 8: Sessions Count per Upcoming Event
+SELECT evt.title, COUNT(ses.session_id) AS total_sessions
+FROM Events evt
+LEFT JOIN Sessions ses ON evt.event_id = ses.event_id
+WHERE evt.status = 'upcoming'
+GROUP BY evt.event_id;
 
-9. Organizer Event Summary:
-SELECT u.full_name, e.status, COUNT(*) AS event_count
-FROM Events e
-JOIN Users u ON e.organizer_id = u.user_id
-GROUP BY u.user_id, e.status;
+ Task 9: Summary of Events by Organizer
+SELECT usr.full_name, evt.status, COUNT(*) AS event_count
+FROM Events evt
+JOIN Users usr ON evt.organizer_id = usr.user_id
+GROUP BY usr.user_id, evt.status;
 
-10. Feedback Gap:
-SELECT DISTINCT e.title
-FROM Events e
-JOIN Registrations r ON e.event_id = r.event_id
-WHERE e.event_id NOT IN (
+ Task 10: Events With Registrations But No Feedback
+SELECT DISTINCT evt.title
+FROM Events evt
+JOIN Registrations reg ON evt.event_id = reg.event_id
+WHERE evt.event_id NOT IN (
   SELECT DISTINCT event_id FROM Feedback
 );
 
-11. Daily New User Count (last 7 days):
+ Task 11: New User Signups (Past Week)
 SELECT registration_date, COUNT(*) AS new_users
 FROM Users
 WHERE registration_date >= CURDATE() - INTERVAL 7 DAY
 GROUP BY registration_date;
 
-12. Event with Maximum Sessions:
-SELECT e.title, COUNT(s.session_id) AS total_sessions
-FROM Events e
-JOIN Sessions s ON e.event_id = s.event_id
-GROUP BY e.event_id
-HAVING total_sessions = (
+ Task 12: Event(s) With Max Sessions
+SELECT evt.title, COUNT(ses.session_id) AS session_total
+FROM Events evt
+JOIN Sessions ses ON evt.event_id = ses.event_id
+GROUP BY evt.event_id
+HAVING session_total = (
   SELECT MAX(session_count)
   FROM (
     SELECT COUNT(*) AS session_count
@@ -93,91 +93,91 @@ HAVING total_sessions = (
   ) AS counts
 );
 
-13. Average Rating per City:
-SELECT e.city, AVG(f.rating) AS avg_rating
-FROM Feedback f
-JOIN Events e ON f.event_id = e.event_id
-GROUP BY e.city;
+-- Task 13: Average Feedback by City
+SELECT evt.city, AVG(fbk.rating) AS avg_city_rating
+FROM Feedback fbk
+JOIN Events evt ON fbk.event_id = evt.event_id
+GROUP BY evt.city;
 
-14. Most Registered Events:
-SELECT e.title, COUNT(r.user_id) AS total_registrations
-FROM Events e
-JOIN Registrations r ON e.event_id = r.event_id
-GROUP BY e.event_id
-ORDER BY total_registrations DESC
+ Task 14: Top 3 Registered Events
+SELECT evt.title, COUNT(reg.user_id) AS registrations
+FROM Events evt
+JOIN Registrations reg ON evt.event_id = reg.event_id
+GROUP BY evt.event_id
+ORDER BY registrations DESC
 LIMIT 3;
 
-15. Event Session Time Conflict:
-SELECT s1.event_id, s1.session_id, s2.session_id
-FROM Sessions s1
-JOIN Sessions s2 ON s1.event_id = s2.event_id
-AND s1.session_id < s2.session_id
-AND s1.end_time > s2.start_time AND s1.start_time < s2.end_time;
+ Task 15: Detect Session Time Overlaps
+SELECT ses1.event_id, ses1.session_id, ses2.session_id
+FROM Sessions ses1
+JOIN Sessions ses2 ON ses1.event_id = ses2.event_id
+AND ses1.session_id < ses2.session_id
+AND ses1.end_time > ses2.start_time AND ses1.start_time < ses2.end_time;
 
-16. Unregistered Active Users:
+ Task 16: Recent Users Without Registration
 SELECT * FROM Users
 WHERE registration_date >= CURDATE() - INTERVAL 30 DAY
 AND user_id NOT IN (SELECT user_id FROM Registrations);
 
-17. Multi-Session Speakers:
-SELECT speaker_name, COUNT(*) AS total_sessions
+ Task 17: Speakers With Multiple Sessions
+SELECT speaker_name, COUNT(*) AS sessions_given
 FROM Sessions
 GROUP BY speaker_name
-HAVING total_sessions > 1;
+HAVING sessions_given > 1;
 
-18. Events Without Resources:
+ Task 18: Events Without Uploaded Resources
 SELECT title
 FROM Events
 WHERE event_id NOT IN (SELECT DISTINCT event_id FROM Resources);
 
-19. Completed Events with Feedback Summary:
-SELECT e.title, COUNT(DISTINCT r.user_id) AS total_registrations,
-       AVG(f.rating) AS avg_rating
-FROM Events e
-LEFT JOIN Registrations r ON e.event_id = r.event_id
-LEFT JOIN Feedback f ON e.event_id = f.event_id
-WHERE e.status = 'completed'
-GROUP BY e.event_id;
+ Task 19: Completed Event Stats With Feedback
+SELECT evt.title, COUNT(DISTINCT reg.user_id) AS total_attendees,
+       AVG(fbk.rating) AS average_rating
+FROM Events evt
+LEFT JOIN Registrations reg ON evt.event_id = reg.event_id
+LEFT JOIN Feedback fbk ON evt.event_id = fbk.event_id
+WHERE evt.status = 'completed'
+GROUP BY evt.event_id;
 
-20. User Engagement Index:
-SELECT u.full_name,
-       COUNT(DISTINCT r.event_id) AS events_attended,
-       COUNT(DISTINCT f.feedback_id) AS feedbacks_given
-FROM Users u
-LEFT JOIN Registrations r ON u.user_id = r.user_id
-LEFT JOIN Feedback f ON u.user_id = f.user_id
-GROUP BY u.user_id;
+ Task 20: Engagement Metrics Per User
+SELECT usr.full_name,
+       COUNT(DISTINCT reg.event_id) AS events_joined,
+       COUNT(DISTINCT fbk.feedback_id) AS feedback_count
+FROM Users usr
+LEFT JOIN Registrations reg ON usr.user_id = reg.user_id
+LEFT JOIN Feedback fbk ON usr.user_id = fbk.user_id
+GROUP BY usr.user_id;
 
-21. Top Feedback Providers:
-SELECT u.full_name, COUNT(f.feedback_id) AS feedbacks
-FROM Feedback f
-JOIN Users u ON f.user_id = u.user_id
-GROUP BY u.user_id
-ORDER BY feedbacks DESC
+ Task 21: Top 5 Feedback Contributors
+SELECT usr.full_name, COUNT(fbk.feedback_id) AS feedbacks_made
+FROM Feedback fbk
+JOIN Users usr ON fbk.user_id = usr.user_id
+GROUP BY usr.user_id
+ORDER BY feedbacks_made DESC
 LIMIT 5;
 
-22. Duplicate Registrations Check:
-SELECT user_id, event_id, COUNT(*) AS total
+ Task 22: Detect Duplicate Registrations
+SELECT user_id, event_id, COUNT(*) AS duplicates
 FROM Registrations
 GROUP BY user_id, event_id
-HAVING total > 1;
+HAVING duplicates > 1;
 
-23. Registration Trends (Monthly for last 12 months):
-SELECT DATE_FORMAT(registration_date, '%Y-%m') AS month,
-       COUNT(*) AS total_registrations
+ Task 23: Monthly Registration Statistics (12 Months)
+SELECT DATE_FORMAT(registration_date, '%Y-%m') AS reg_month,
+       COUNT(*) AS total_regs
 FROM Registrations
 WHERE registration_date >= CURDATE() - INTERVAL 12 MONTH
-GROUP BY month
-ORDER BY month;
+GROUP BY reg_month
+ORDER BY reg_month;
 
-24. Average Session Duration per Event:
-SELECT e.title, 
-       AVG(TIMESTAMPDIFF(MINUTE, s.start_time, s.end_time)) AS avg_duration_minutes
-FROM Events e
-JOIN Sessions s ON e.event_id = s.event_id
-GROUP BY e.event_id;
+ Task 24: Avg Duration of Sessions per Event
+SELECT evt.title, 
+       AVG(TIMESTAMPDIFF(MINUTE, ses.start_time, ses.end_time)) AS avg_duration_mins
+FROM Events evt
+JOIN Sessions ses ON evt.event_id = ses.event_id
+GROUP BY evt.event_id;
 
-25. Events Without Sessions:
+-- Task 25: Events Missing Sessions
 SELECT title
 FROM Events
 WHERE event_id NOT IN (SELECT DISTINCT event_id FROM Sessions);
