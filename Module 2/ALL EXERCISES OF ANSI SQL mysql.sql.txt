@@ -177,7 +177,7 @@ FROM Events evt
 JOIN Sessions ses ON evt.event_id = ses.event_id
 GROUP BY evt.event_id;
 
--- Task 25: Events Missing Sessions
+ Task 25: Events Missing Sessions
 SELECT title
 FROM Events
 WHERE event_id NOT IN (SELECT DISTINCT event_id FROM Sessions);
