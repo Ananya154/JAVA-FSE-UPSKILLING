@@ -75,7 +75,7 @@ h3, p {
   color: #444;
 }
 
-/* ===== Task 4: Color Schemes and Backgrounds ===== */
+// Task 4: Color Schemes and Backgrounds 
 h1 {
   color: #003366;
 }
