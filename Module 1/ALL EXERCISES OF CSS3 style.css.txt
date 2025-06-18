@@ -1,4 +1,4 @@
-/* ===== Task 1: CSS Usage Variations ===== */
+// Task 1: CSS Usage Variations 
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@
 
 External CSS (styles.css):
 /* Header styles */
-/* ===== Task 1: CSS Usage Variations ===== */
+// Task 1: CSS Usage Variations 
 #primaryHeading {
   font-size: 24px;
   color: #00008b; /* Changed to dark blue */
@@ -37,7 +37,7 @@ External CSS (styles.css):
   background-color: #fafafa;
 }
 
-/* ===== Task 2: Call-to-Action Button Styling ===== */
+// Task 2: Call-to-Action Button Styling 
 .call-action {
   background-color: #0066cc;
   color: #fff;
@@ -47,7 +47,7 @@ External CSS (styles.css):
   font-size: 17px;
 }
 
-/* ===== Task 3: Exploring CSS Selectors ===== */
+// Task 3: Exploring CSS Selectors 
 * {
   margin: 0;
   padding: 0;
@@ -92,7 +92,7 @@ section h2 {
   padding: 12px;
 }
 
-/* ===== Task 5: Typography Enhancements ===== */
+// Task 5: Typography Enhancements 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 body {
@@ -107,7 +107,7 @@ p.summary {
   text-transform: capitalize;
 }
 
-/* ===== Task 6: Link and List Presentation ===== */
+// Task 6: Link and List Presentation 
 nav a:link {
   color: #0055aa;
 }
@@ -133,7 +133,7 @@ nav li {
   margin: 6px 0;
 }
 
-/* ===== Task 7: Table Formatting ===== */
+// Task 7: Table Formatting 
 table {
   width: 100%;
   border-collapse: collapse;
@@ -149,7 +149,7 @@ tr:nth-child(even) {
   background-color: #f4f4f4;
 }
 
-/* ===== Task 8: Box Model Adjustments ===== */
+// Task 8: Box Model Adjustments 
 .mainCard {
   border: 1px solid #ccc;
   margin: 22px;
@@ -168,14 +168,14 @@ input:focus {
   display: none;
 }
 
-/* ===== Task 9: Multi-Column News Style ===== */
+// Task 9: Multi-Column News Style 
 .news-block {
   column-count: 2;
   column-gap: 32px;
   column-rule: 1px solid #888;
 }
 
-/* ===== Task 10: Responsive Design with Media Queries ===== */
+// Task 10: Responsive Design with Media Queries 
 nav ul {
   display: flex;
   justify-content: space-between;
@@ -201,7 +201,7 @@ nav ul {
   margin: 0 auto;
 }
 
-/* ===== Task 11: Developer Tools Practice ===== */
+// Task 11: Developer Tools Practice 
 /* Use DevTools to test:
    - Different screen widths
    - CSS rule application
