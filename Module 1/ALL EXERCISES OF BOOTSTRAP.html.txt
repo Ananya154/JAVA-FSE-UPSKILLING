@@ -1,4 +1,4 @@
-<!-- Task 1.1: Integrating Bootstrap via CDN -->
+// Task 1.1: Integrating Bootstrap via CDN
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +15,7 @@
 </body>
 </html>
 
-<!-- Task 1.2: Using Local Bootstrap Assets -->
+// Task 1.2: Using Local Bootstrap Assets 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +32,7 @@
 </body>
 </html>
 
-<!-- Task 2.1: Bootstrap Directory Structure Explained -->
+// Task 2.1: Bootstrap Directory Structure Explained
 <!--
 bootstrap-5.x.x-dist/
 ├── css/ → Bootstrap stylesheet files
@@ -40,7 +40,7 @@ bootstrap-5.x.x-dist/
 └── icons/ → SVG icons for use with Bootstrap Icons (optional)
 -->
 
-<!-- Task 2.2: Bootstrap JS Components Example -->
+// Task 2.2: Bootstrap JS Components Example 
 <div class="container mt-5">
   <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#customModal">
     Open Modal Box
@@ -58,7 +58,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 3.1: Layout with Three Responsive Columns -->
+// Task 3.1: Layout with Three Responsive Columns
 <div class="container mt-5">
   <div class="row">
     <div class="col-12 col-sm-6 col-lg-4 bg-light p-3 text-center">Column Alpha</div>
@@ -67,7 +67,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 3.2: Grid Layout with .container, .row, .col-* -->
+// Task 3.2: Grid Layout with .container, .row, .col-*
 <div class="container">
   <div class="row">
     <div class="col-md-4 text-center bg-light p-2">Box A</div>
@@ -76,7 +76,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 4.1: Sidebar and Main Section Layout -->
+// Task 4.1: Sidebar and Main Section Layout
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-3 bg-light text-center py-3">Side Panel</div>
@@ -84,7 +84,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 4.2: Four Column Balanced Layout -->
+// Task 4.2: Four Column Balanced Layout
 <div class="container mt-4">
   <div class="row">
     <div class="col-sm-3 bg-success text-white p-2">One</div>
@@ -94,47 +94,47 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 5.1: Centering with Flex Utilities -->
+// Task 5.1: Centering with Flex Utilities 
 <div class="container">
   <div class="row justify-content-center align-items-center" style="height: 100px;">
     <div class="col-6 text-center">Perfectly Centered Block</div>
   </div>
 </div>
 
-<!-- Task 5.2: Rearranging Column Order on Desktop -->
+// Task 5.2: Rearranging Column Order on Desktop 
 <div class="row">
   <div class="col-md-6 order-md-2 bg-light p-3">This appears second on large screens</div>
   <div class="col-md-6 order-md-1 bg-dark text-white p-3">This appears first on large screens</div>
 </div>
 
-<!-- Task 6.1: Navbar Layout Using Flexbox -->
+// Task 6.1: Navbar Layout Using Flexbox 
 <nav class="d-flex flex-column flex-md-row bg-dark text-white p-3">
   <a href="#" class="me-md-3 text-white text-decoration-none">Dashboard</a>
   <a href="#" class="me-md-3 text-white text-decoration-none">About</a>
   <a href="#" class="text-white text-decoration-none">Contact Us</a>
 </nav>
 
-<!-- Task 6.2: Card with Alignment Utilities -->
+ Task 6.2: Card with Alignment Utilities 
 <div class="card d-flex flex-row justify-content-between align-items-center p-3 mt-3">
   <div>Session Details</div>
   <button class="btn btn-outline-primary">Join Now</button>
 </div>
 
-<!-- Task 7.1: Applying Bootstrap Typography Classes -->
+// Task 7.1: Applying Bootstrap Typography Classes 
 <div class="container">
   <h2 class="display-3 text-center text-primary">Typography in Bootstrap</h2>
   <p class="lead text-center">Explore how Bootstrap helps structure headings and text with clarity.</p>
   <p class="text-muted fw-semibold text-center">This is an emphasized muted paragraph.</p>
 </div>
 
-<!-- Task 7.2: Transforming Text Case -->
+// Task 7.2: Transforming Text Case
 <div class="container mt-3">
   <p class="text-uppercase">this will be UPPERCASE</p>
   <p class="text-lowercase">THIS WILL BE LOWERCASE</p>
   <p class="text-capitalize">each word is capitalized</p>
 </div>
 
-<!-- Task 8.1: User Signup Form Using Input Groups -->
+// Task 8.1: User Signup Form Using Input Groups
 <form class="container mt-4">
   <div class="input-group mb-3">
     <label class="input-group-text" for="username">@</label>
@@ -146,25 +146,25 @@ bootstrap-5.x.x-dist/
   </div>
 </form>
 
-<!-- Task 8.2: Email Login with Floating Label -->
+// Task 8.2: Email Login with Floating Label
 <form class="form-floating container mt-4">
   <input type="email" class="form-control" id="emailLogin" placeholder="email@example.com">
   <label for="emailLogin">Enter your email</label>
 </form>
 
-<!-- Task 9.1: Themed Buttons with Bootstrap -->
+// Task 9.1: Themed Buttons with Bootstrap 
 <div class="container mt-4">
   <button class="btn btn-warning">Warning</button>
   <button class="btn btn-outline-dark">Outline Dark</button>
 </div>
 
-<!-- Task 9.2: Grouped Toggle Buttons -->
+// Task 9.2: Grouped Toggle Buttons 
 <div class="btn-group mt-2" role="group">
   <input type="checkbox" class="btn-check" id="opt1">
   <label class="btn btn-outline-danger" for="opt1">Toggle Me</label>
 </div>
 
-<!-- Task 10.1: Responsive Navigation Bar -->
+// Task 10.1: Responsive Navigation Bar 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mt-4">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Brand</a>
@@ -180,7 +180,7 @@ bootstrap-5.x.x-dist/
   </div>
 </nav>
 
-<!-- Task 10.2: Navigation Tabs and Pills -->
+// Task 10.2: Navigation Tabs and Pills
 <ul class="nav nav-tabs mt-4">
   <li class="nav-item"><a class="nav-link active" href="#">Overview</a></li>
   <li class="nav-item"><a class="nav-link" href="#">Details</a></li>
@@ -190,7 +190,7 @@ bootstrap-5.x.x-dist/
   <li class="nav-item"><a class="nav-link" href="#">Next</a></li>
 </ul>
 
-<!-- Task 11.1: Personal Profile Card -->
+// Task 11.1: Personal Profile Card 
 <div class="card mt-4 mx-auto" style="width: 18rem;">
   <img src="profile.jpg" class="card-img-top" alt="User Profile">
   <div class="card-body">
@@ -199,7 +199,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 11.2: Event Description with Media Object -->
+// Task 11.2: Event Description with Media Object
 <div class="d-flex mt-4 container">
   <img src="avatar.png" alt="Speaker Avatar" width="64" class="me-3">
   <div>
@@ -208,14 +208,14 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 12.1: Layout Spacing with Bootstrap Utilities -->
+// Task 12.1: Layout Spacing with Bootstrap Utilities 
 <div class="container mt-5">
   <h3 class="mb-4">Task 12.1: Spacing with Margins and Padding</h3>
   <div class="bg-light m-4 p-3">Box with margin-4 and padding-3</div>
   <div class="bg-dark text-white mt-5 py-4 px-2">Dark Box with vertical padding and margin</div>
 </div>
 
-<!-- Task 12.2: Service Plans Pricing Section -->
+// Task 12.2: Service Plans Pricing Section 
 <div class="container mt-5">
   <h3 class="mb-4">Task 12.2: Service Pricing Cards</h3>
   <div class="row">
@@ -234,7 +234,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 13.1: Custom Background and Text Colors -->
+// Task 13.1: Custom Background and Text Colors 
 <div class="container mt-5">
   <h3 class="mb-4">Task 13.1: Colored Sections</h3>
   <div class="p-3 mb-3 bg-info text-white">Info Section</div>
@@ -242,7 +242,7 @@ bootstrap-5.x.x-dist/
   <div class="p-3 mb-3 bg-danger text-white">Error Alert</div>
 </div>
 
-<!-- Task 13.2: Gradient and Theme Integration -->
+// Task 13.2: Gradient and Theme Integration 
 <div class="container mt-5">
   <h3 class="mb-4">Task 13.2: Gradient Style Box</h3>
   <div class="bg-primary bg-gradient text-white p-4 rounded-3">
@@ -250,28 +250,21 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 14.1: Controlling Display Across Breakpoints -->
+// Task 14.1: Controlling Display Across Breakpoints 
 <div class="container mt-5">
   <h3 class="mb-4">Task 14.1: Breakpoint Display Utilities</h3>
   <div class="d-none d-lg-block bg-light p-3 mb-3">Visible only on large screens and up</div>
   <div class="d-xl-flex bg-warning text-dark p-3">Visible as flex only on extra-large screens</div>
 </div>
 
-<!-- Task 14.2: Tablet-Only Sidebar -->
+// Task 14.2: Tablet-Only Sidebar 
 <div class="container mt-5">
-  <h3 class="mb-4">Task 14.2: Tablet Optimized Sidebar</h3>
-  <div class="d-none d-md-block bg-dark text-white p-3 rounded">
-    Sidebar shown only on tablet and larger devices.
-  </div>
-</div>
-
-<!-- Task 15.1: Image Styling with Bootstrap Borders -->
 <div class="container mt-5 text-center">
   <h3 class="mb-4">Task 15.1: Profile Image with Borders</h3>
   <img src="user.jpg" alt="User Profile" class="border border-danger border-4 rounded-circle" width="150">
 </div>
 
-<!-- Task 15.2: Elevated Pill Card -->
+// Task 15.2: Elevated Pill Card
 <div class="container mt-5">
   <h3 class="mb-4">Task 15.2: Rounded Pill Styled Card</h3>
   <div class="card shadow-sm rounded-pill p-4">
@@ -279,12 +272,12 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 16.1: Sticky Footer Implementation -->
+// Task 16.1: Sticky Footer Implementation
 <footer class="position-fixed bottom-0 start-0 end-0 bg-secondary text-white text-center py-2">
   Sticky Footer - Always visible at the viewport bottom
 </footer>
 
-<!-- Task 16.2: Badge Placement on Image -->
+// Task 16.2: Badge Placement on Image 
 <div class="container mt-5 text-center">
   <h3 class="mb-4">Task 16.2: Badge on Top of Image</h3>
   <div class="position-relative d-inline-block">
@@ -295,7 +288,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 17.1: Footer Icons with Bootstrap Icons -->
+// Task 17.1: Footer Icons with Bootstrap Icons 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 <footer class="container mt-5 text-center">
   <h3 class="mb-4">Task 17.1: Footer Social Links</h3>
@@ -304,14 +297,14 @@ bootstrap-5.x.x-dist/
   <a href="#" class="text-decoration-none text-dark mx-2"><i class="bi bi-youtube"></i></a>
 </footer>
 
-<!-- Task 17.2: Action Buttons with Icons -->
+// Task 17.2: Action Buttons with Icons 
 <div class="container mt-5 text-center">
   <h3 class="mb-4">Task 17.2: Icon-Based Action Buttons</h3>
   <button class="btn btn-outline-success mx-2"><i class="bi bi-check-circle"></i></button>
   <button class="btn btn-outline-danger mx-2"><i class="bi bi-x-circle"></i></button>
 </div>
 
-<!-- Task 18.1: Interactive Info Modal -->
+// Task 18.1: Interactive Info Modal 
 <button class="btn btn-primary mt-5 ms-3" data-bs-toggle="modal" data-bs-target="#infoBox">Show Info</button>
 <div class="modal fade" id="infoBox" tabindex="-1">
   <div class="modal-dialog">
@@ -322,7 +315,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 18.2: Collapsible FAQ Section -->
+// Task 18.2: Collapsible FAQ Section 
 <div class="accordion container mt-5" id="faqList">
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -334,7 +327,7 @@ bootstrap-5.x.x-dist/
   </div>
 </div>
 
-<!-- Task 19.1 & 19.2: SCSS Customization with Bootstrap -->
+// Task 19.1 & 19.2: SCSS Customization with Bootstrap 
 <!-- Use npm to install Bootstrap, then override _variables.scss -->
 <!-- Sample: $body-bg: #f0f0f0; $border-radius: 0.75rem; -->
 <!-- Import bootstrap in custom.scss and compile using sass custom.scss bootstrap.css -->
